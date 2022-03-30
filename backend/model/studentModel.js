@@ -12,7 +12,13 @@ const studentSchema = new mongoose.Schema({
     phone: {
         type: Number,
         required: [true, "Please Enter Phone Number"]
+    },
+    course: [
+        {
+        type: String,
+        require: [true, "Please Select Course"]
     }
+]
 })
 
 module.exports = mongoose.model("Student",studentSchema)
