@@ -16,7 +16,7 @@ const studentSchema = new mongoose.Schema({
     course: [
         {
         type: String,
-        require: [true, "Please Select Course"]
+        required: [true, "Please Select Course"]
     }
 ]
 })
