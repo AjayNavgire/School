@@ -1,5 +1,7 @@
 const Student = require("../model/studentModel");
+const ApiFeatures = require("../utils/apifeatures");
 const ErrorHandler = require("../utils/errorhandler");
+
 
 
 // Create Student 
@@ -15,8 +17,9 @@ exports.createStudent = async (req, res, next)=>{
 
 // Get All Student
 exports.getAllStudents = (async (req, res)=>{
-    
-    const students = await Student.find()
+
+    const apiFeature = new ApiFeatures(Student.find(), req.query).search()
+    const students = await apiFeature.query;
 
     res.status(200).json({
         success: true,
