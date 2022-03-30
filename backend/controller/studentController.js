@@ -1,11 +1,12 @@
 const Student = require("../model/studentModel");
 const ApiFeatures = require("../utils/apifeatures");
 const ErrorHandler = require("../utils/errorhandler");
+const catchAsyncError = require("../middleware/catchAsyncErrors");
 
 
 
 // Create Student 
-exports.createStudent = async (req, res, next)=>{
+exports.createStudent = catchAsyncError(async (req, res, next)=>{
 
     const student = await Student.create(req.body);
 
@@ -13,10 +14,10 @@ exports.createStudent = async (req, res, next)=>{
         success: true,
         student
     })
-}
+})
 
 // Get All Student
-exports.getAllStudents = (async (req, res)=>{
+exports.getAllStudents = catchAsyncError((async (req, res)=>{
 
     const apiFeature = new ApiFeatures(Student.find(), req.query).search()
     const students = await apiFeature.query;
@@ -25,10 +26,10 @@ exports.getAllStudents = (async (req, res)=>{
         success: true,
         students
     })
-})
+}))
 
 //Get Student Details
-exports.getStudentDetails = async (req, res, next) =>{
+exports.getStudentDetails = catchAsyncError(async (req, res, next) =>{
     
     const student = await Student.findById(req.params.id);
 
@@ -40,10 +41,10 @@ exports.getStudentDetails = async (req, res, next) =>{
         success: true,
         student
     })
-}
+})
 
 // Update Student 
-exports.updateStudent = async(req, res) =>{
+exports.updateStudent = catchAsyncError(async(req, res) =>{
 
     let student = await Student.findById(req.params.id);
 
@@ -61,4 +62,4 @@ exports.updateStudent = async(req, res) =>{
         success: true,
         student
     })
-}
+})
